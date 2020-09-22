@@ -99,7 +99,6 @@ export default {
     },
     created() {
         this.html = build(this.buildPayLoad)
-        debugger
     },
     computed: {
         buildPayLoad () {
@@ -113,7 +112,6 @@ export default {
     watch: {
         inputnames: {
             handler: function() {
-                debugger
                 this.html = build(this.buildPayLoad)
             },
             deep: true,
