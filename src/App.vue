@@ -1,17 +1,22 @@
 <template>
     <main class="app-container">
 
+        <topnav></topnav>
 
         <div class="grid-container">
 
-            <div class="html" v-html="html"></div>
+            <div class="html">
+                <h2 class="section-header">Preview</h2>
+                <section v-html="html"></section>
+            </div>
 
             <div class="inputs">
-                <div class="all-controls layout-row layout-center-all">
-                    <div class="item-container layout-center-all layout-col" v-for="(item, index) in inputnames" :key="index">
+                <h2 class="section-header">Configuration</h2>
+                <div class="all-controls layout-row">
+                    <div class="item-container layout-col" v-for="(item, index) in inputnames" :key="index">
                         <label :for="item.name">{{ item.name }}</label>
                         <input v-if="item.type === 'text'" v-model="item.val" type="text" :name="item.name" />
-                        <textarea v-else v-model="item.val" type="text" :name="item.name" />
+                        <textarea rows="8" v-else v-model="item.val" type="text" :name="item.name" />
                     </div>
                 </div>
             </div>
@@ -20,81 +25,30 @@
 
         <div class="actual-html" ></div>
 
-        <div class="instructions layout-col layout-center-all">
+        <div class="instructions layout-col">
 
-            <div class="page-container restrict"><code><pre>{{ html }}</pre></code></div>
+            <h2 class="section-header">Final HTML</h2>
+
+            <div class="restrict"><code><pre>{{ html }}</pre></code></div>
         </div>
     </main>
 </template>
 
 <script>
-import { build } from './templates/default.ts'
+import { build } from './utils/html'
+import { config } from './utils/inputconfig'
+
+import topnav from './components/topnav'
+
 export default {
     name: 'App',
+    components: {
+        topnav,
+    },
     data() {
         return {
             html: '',
-            inputnames: [
-                {
-                    name: 'preheader',
-                    val: '',
-                    type: 'textarea',
-                },
-                {
-                    name: 'logoHref',
-                    val: '',
-                    type: 'text',
-                    isUrl: true,
-                },
-                {
-                    name: 'logoSrc',
-                    val: '',
-                    type: 'text',
-                    isUrl: true,
-                },
-                {
-                    name: 'heroHeadingText',
-                    val: '',
-                    allowsHtml: true,
-                    type: 'textarea',
-                },
-                {
-                    name: 'emailBodyText',
-                    val: '',
-                    allowsHtml: true,
-                    type: 'textarea',
-                },
-                {
-                    name: 'ctaButtonHref',
-                    val: '',
-                    isUrl: true,
-                    type: 'text',
-                },
-                {
-                    name: 'ctaButtonText',
-                    val: '',
-                    allowsHtml: true,
-                    type: 'text',
-                },
-                {
-                    name: 'finalContentText',
-                    val: '',
-                    allowsHtml: true,
-                    type: 'textarea',
-                },
-                {
-                    name: 'afterBodyText',
-                    val: '',
-                    allowsHtml: true,
-                    type: 'textarea',
-                },
-                {
-                    name: 'unsubHref',
-                    val: '',
-                    isUrl: true,
-                    type: 'text',
-                },
-            ],
+            inputnames: config,
         }
     },
     created() {
@@ -104,7 +58,7 @@ export default {
         buildPayLoad () {
             let final = {}
             this.inputnames.forEach(element => {
-                final[element.name] = element.val
+                final[element.keyName] = element.val
             })
             return final
         },
@@ -122,23 +76,25 @@ export default {
 
 <style lang="sass" scoped>
 .grid-container
-  display: grid
-  grid-template-columns: 1fr 1fr 1fr
-  grid-template-rows: 1fr 1fr
-  gap: 1px 1px
-  grid-template-areas: "inputs inputs html" "inputs inputs html"
+    margin-top: 100px
+    display: grid
+    grid-template-columns: 1fr 1fr 1fr
+    grid-template-rows: 1fr 1fr
+    gap: 1px 1px
+    grid-template-areas: "inputs inputs html" "inputs inputs html"
 .html
     grid-area: html
+    padding: 20px
 .inputs
+    padding: 20px
     grid-area: inputs
+    border-right: 1px solid $light-gray
 .restrict
-    border: 3px solid #adadad
     border-radius: 5px
     overflow-y: scroll
     padding: 20px
     background: #efefef
     width: 90% !important
-    margin: 20px
 input, textarea
     width: 100%
     padding: 12px 20px
@@ -148,11 +104,12 @@ input, textarea
     border-radius: 4px
     box-sizing: border-box
 label
-    color: $secondary
+    color: $primary
+    font-family: $body-font
 textarea
     width: 100%
 .item-container
-    width: 700px
+    width: 550px
     margin: 10px
 .all-controls
     flex-wrap: wrap
@@ -160,7 +117,15 @@ textarea
     margin: 0 auto
     width: 30%
 .instructions
-    border-top: 3px solid $tertiary
+    border-top: 1px solid $light-gray
+    padding: 20px
 h1
     color: $primary
+.main-header
+    margin-top: 70px
+.section-header
+    margin-top: 0
+    color: $secondary
+    border-bottom: 1px solid $light-gray
+    padding-bottom: 10px
 </style>

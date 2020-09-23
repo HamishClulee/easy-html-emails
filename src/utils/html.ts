@@ -134,7 +134,7 @@ const formatHtml = (config: TemplateConfig) => `<!DOCTYPE html>
         <tr>
         <td align="center" valign="top" width="600">
         <![endif]-->
-        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 300px;">
           <tr>
             <td align="center" valign="top" style="padding: 36px 24px;">
               <a href='${config.logoHref}' target='_blank'>
