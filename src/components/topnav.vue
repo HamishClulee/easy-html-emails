@@ -11,10 +11,10 @@
 
         <div class="navbar-right">
 
-            <div class="text-item" :class="checkvis('docs') ? 'active-route' : 'inactive-route'">
-                <router-link :to="{ path: '/docs'}">Docs</router-link>
+            <div class="text-item">
+                <a>There Are No Menu Items :)</a>
             </div>
-            <div class="text-item" :class="checkvis('components') ? 'active-route' : 'inactive-route'">
+            <!-- <div class="text-item" :class="checkvis('components') ? 'active-route' : 'inactive-route'">
                 <router-link :to="{ path: '/components'}">Components</router-link>
             </div>
 
@@ -22,7 +22,7 @@
                 <div class="line"></div>
                 <div class="line"></div>
                 <div class="line"></div>
-            </div>
+            </div> -->
         </div>
 
         <transition name="fade" mode="in-out">
