@@ -3,38 +3,45 @@
 
         <topnav></topnav>
 
-        <div class="grid-container">
+        <router-view v-if="$route.path !== '/'"></router-view>
 
-            <div class="html">
-                <h2 class="section-header">Preview</h2>
-                <section v-html="html"></section>
-            </div>
+        <template v-else>
+            <div class="grid-container">
 
-            <div class="inputs">
-                <h2 class="section-header">Configuration</h2>
-                <div class="all-controls layout-row">
-                    <div class="item-container layout-col" v-for="(item, index) in inputnames" :key="index">
-                        <label :for="item.name">{{ item.name }}</label>
-                        <input v-if="item.type === 'text'" v-model="item.val" type="text" :name="item.name" />
-                        <textarea rows="8" v-else v-model="item.val" type="text" :name="item.name" />
+                <div class="html">
+                    <h2 class="section-header">Preview</h2>
+                    <section v-html="html"></section>
+                </div>
+
+                <div class="inputs">
+                    <h2 class="section-header">Configuration</h2>
+                    <div class="all-controls layout-row">
+                        <div class="item-container layout-col" v-for="(item, index) in inputnames" :key="index">
+                            <label :for="item.name">{{ item.name }}</label>
+                            <input v-if="item.type === 'text'" v-model="item.val" type="text" :name="item.name" />
+                            <textarea rows="8" v-else v-model="item.val" type="text" :name="item.name" />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
 
-        <div class="actual-html" ></div>
+            <div class="actual-html" ></div>
 
-        <div class="instructions layout-col">
+            <div class="instructions layout-col">
 
-            <h2 class="section-header">Final HTML</h2>
+                <h2 class="section-header">Final HTML</h2>
 
-            <div class="restrict"><code><pre>{{ html }}</pre></code></div>
-        </div>
+                <div class="restrict"><code><pre>{{ html }}</pre></code></div>
+            </div>
+        </template>
+
+
     </main>
 </template>
 
 <script>
+
 import { build } from './utils/html'
 import { config } from './utils/inputconfig'
 
@@ -52,7 +59,26 @@ export default {
         }
     },
     created() {
+
         this.html = build(this.buildPayLoad)
+    },
+    mounted () {
+        window.addEventListener('contentedit', (e) => {
+
+            debugger
+
+            this.inputnames.forEach((element, index) => {
+
+                debugger
+
+                if (element.keyName === e.detail.keyName) {
+                    debugger
+                    this.inputnames[index].val = e.detail.newValue
+                }
+                
+            })
+
+        }, false)
     },
     computed: {
         buildPayLoad () {
@@ -76,7 +102,7 @@ export default {
 
 <style lang="sass" scoped>
 .grid-container
-    margin-top: 100px
+    margin-top: 75px
     display: grid
     grid-template-columns: 1fr 1fr 1fr
     grid-template-rows: 1fr 1fr
@@ -109,7 +135,7 @@ label
 textarea
     width: 100%
 .item-container
-    width: 550px
+    width: 45%
     margin: 10px
 .all-controls
     flex-wrap: wrap
@@ -128,4 +154,5 @@ h1
     color: $secondary
     border-bottom: 1px solid $light-gray
     padding-bottom: 10px
+    font-size: 1.8em
 </style>

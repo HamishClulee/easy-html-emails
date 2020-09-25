@@ -40,6 +40,18 @@
                 background: white;
             }
         </style>
+        <script>
+
+          let elementFocused = function (ctx, name) {
+            ctx.contentEditable = 'true'
+          }
+
+          let elementBlurred = function (ctx, name) {
+            ctx.contentEditable = 'false'
+            window.dispatchEvent(new CustomEvent('contentedit', { detail: { keyName: name, newValue: ctx.innerText }}))
+          }
+
+        </script>
     </head>
     <body>
         <noscript>

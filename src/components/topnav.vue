@@ -5,9 +5,8 @@
             <div class="logo-con" @click="$route.name !== 'home' ? routehome : null">
                 <img src="/favicon.ico" />
             </div>
+            <h2 class="navh2">Build My Email</h2>
         </div>
-
-        <div class="spacer"></div>
 
         <div class="navbar-right">
 
@@ -84,102 +83,6 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-.logout
-    color: $primary
-    border-color: $primary
-.account-settings
-    margin-top: 30px
-    padding-top: 30px
-    border-top: 1px solid $primary
-.account-active-indic
-    display: flex
-    flex-direction: column
-    align-items: center
-    justify-content: center
-    margin-right: 10px
-    cursor: pointer
-.small-6
-    font-size: 0.7em
-    font-family: $heading-font
-    text-transform: uppercase
-    margin: 0 
-.spacer
-    width: 100%
-a
-    text-decoration: none
-    border-bottom: 2px solid transparent
-.canvas-nav
-    z-index: 6
-    position: absolute
-    top: 0
-    bottom: 0
-    left: 0
-    right: 0
-    transition: all 1s ease
-    background-color: white
-    color: $font
-    height: 100vh
-    width: 100%
-    overflow: hidden !important
-    display: flex
-    justify-content: flex-start
-    flex-direction: column
-    align-items: flex-end
-    @media (min-width: 0px) and (max-width: 520px)
-        font-size: 0.8em
-    .canvas-text-con
-        width: 400px
-        text-align: right
-        margin: 30px 20px 0 0
-        a
-            font-size: 3em
-.active-route
-    display: flex
-    flex-direction: column
-    &:after
-        content: ''
-        width: 10px
-        height: 2px
-        background-color: $primary
-        position: relative
-        top: 2px
-        right: 2px
-.inactive-route
-    display: flex
-    flex-direction: column
-    &:hover
-        &:after
-            content: ''
-            width: 10px
-            height: 2px
-            background-color: lighten($primary, 20)
-            position: relative
-            top: 2px
-            right: 2px
-    &:after
-        content: ''
-        width: 10px
-        height: 2px
-        background-color: white
-        position: relative
-        top: 2px
-        right: 2px
-.canvas
-    &:after
-        left: 320px
-        top: -6px
-        width: 80px
-        @media (min-width: 0px) and (max-width: 520px)
-            width: 50px
-            left: 348px
-.cta
-    background-color: $highlight
-    color: $font
-.cta-canvas
-    background-color: $highlight
-    color: $font
-    width: 250px
-    margin-top: 15px
 .navbar-con, .navbar-left, .navbar-right
     display: flex
     flex-direction: row
@@ -187,6 +90,14 @@ a
     a
         color: $font
         text-transform: uppercase
+.navbar-left
+    align-items: center
+    justify-content: center
+    width: 600px
+    .navh2
+        margin: 0 0 0 15px
+        color: $primary
+        opacity: 0.2
 .navbar-con
     position: fixed
     width: 100%
@@ -203,36 +114,6 @@ a
     margin-right: 20px
     @media (min-width: 0px) and (max-width: 980px)
         display: none
-.hamburger
-    display: flex
-    flex-direction: column
-    width: 50px
-    height: 80px
-    align-items: flex-end
-    justify-content: center
-    cursor: pointer
-    margin-right: 20px
-    .line
-        height: 2px
-        width: 25px
-        background-color: $font
-        margin-top: 4px
-.big-x
-    cursor: pointer
-    padding: 10px
-    margin-left: 360px
-    margin-bottom: 20px
-    &:hover
-        opacity: 0.8
-    .line
-        background-color: $font
-        transform: rotate(-45deg)
-        &:first-child
-            transform: rotate(45deg)
-            position: relative
-            top: 2px
-        height: 2px
-        width: 35px
 .logo-con
     height: 80px
     display: flex
@@ -246,15 +127,4 @@ a
     img
         height: 50px
         width: 50px
-.text-item
-    padding: 0 20px
-.account
-    img
-        position: relative
-        top: 4px
-        margin-right: 10px
-    display: flex
-    flex-direction: row
-    align-items: center
-    justify-content: flex-end
 </style>
