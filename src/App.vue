@@ -65,14 +65,11 @@ export default {
     mounted () {
         window.addEventListener('contentedit', (e) => {
 
-            debugger
 
             this.inputnames.forEach((element, index) => {
 
-                debugger
 
                 if (element.keyName === e.detail.keyName) {
-                    debugger
                     this.inputnames[index].val = e.detail.newValue
                 }
                 

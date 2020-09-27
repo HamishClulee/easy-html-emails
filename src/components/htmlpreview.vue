@@ -11,8 +11,8 @@
                     <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 300px;">
                         <tr>
                         <td align="center" valign="top" style="padding: 36px 24px;">
-                            <a :href="config.logoHref" target='_blank'>
-                            <img :src="config.logoSrc" width="62.9%" border='0' alt='logo'/>
+                            <a :href="values.logoHref" target='_blank'>
+                            <img :src="values.logoSrc" width="62.9%" border='0' alt='logo'/>
                             </a>
                         </td>
                         </tr>
@@ -29,7 +29,17 @@
                     <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                         <tr>
                             <td align="left" bgcolor="#ffffff" style="padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; border-top: 3px solid #009688;">
-                                <h1 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;">{{config.heroHeadingText}}</h1>
+                                
+                                <editablewrapper keyName="heroHeadingText">
+                                
+                                    <h1
+                                        style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;"
+                                    >{{values.heroHeadingText}}</h1>
+
+                                </editablewrapper>
+                                
+                                <!-- <h1 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;" @click="heroHeadingText = true" v-if="!heroHeadingText">{{values.heroHeadingText}}</h1>
+                                <editablesinglerow v-else :model="values.heroHeadingText" keyname="heroHeadingText"></editablesinglerow> -->
                             </td>
                         </tr>
                     </table>
@@ -47,7 +57,9 @@
                         <!-- start copy -->
                         <tr>
                             <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-                                <p style="margin: 0;">{{config.emailBodyText}}</p>
+                                <editablewrapper keyName="emailBodyText">
+                                    <p style="margin: 0;">{{values.emailBodyText}}</p>
+                                </editablewrapper>
                             </td>
                         </tr>
                         <!-- end copy -->
@@ -61,7 +73,9 @@
                                             <table border="0" cellpadding="0" cellspacing="0">
                                                 <tr>
                                                     <td align="center" bgcolor="#1976D2" style="border-radius: 6px;">
-                                                        <a :href="config.ctaButtonHref" target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">{{config.ctaButtonText}}</a>
+                                                        <editablewrapper keyName="ctaButtonText">
+                                                            <a :href="values.ctaButtonHref" target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">{{values.ctaButtonText}}</a>
+                                                        </editablewrapper>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -75,7 +89,7 @@
                         <!-- start copy -->
                         <tr>
                             <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-bottom: 3px solid #009688;">
-                                <p style="margin: 0;">{{ config.finalContentText }}</p>
+                                <p style="margin: 0;">{{ values.finalContentText }}</p>
                             </td>
                         </tr>
                         <!-- end copy -->
@@ -95,7 +109,7 @@
                         <!-- start permission -->
                         <tr>
                             <td align="center" bgcolor="white" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-                                <p style="margin: 0;"><a>{{ config.afterBodyText }}</a></p>
+                                <p style="margin: 0;"><a>{{ values.afterBodyText }}</a></p>
                             </td>
                         </tr>
                         <!-- end permission -->
@@ -103,7 +117,7 @@
                         <!-- start unsubscribe -->
                         <tr>
                             <td align="center" bgcolor="white" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-                                <p style="margin: 0;">To stop receiving these emails, you can <a :href="config.unsubHref" target="_blank">unsubscribe</a> at any time.</p>
+                                <p style="margin: 0;">To stop receiving these emails, you can <a :href="values.unsubHref" target="_blank">unsubscribe</a> at any time.</p>
                             </td>
                         </tr>
                         <!-- end unsubscribe -->
@@ -120,59 +134,148 @@
 </template>
 
 <script>
-
-import { build } from '../utils/html'
-import { config } from '../utils/inputconfig'
-
+// {
+//         name: 'Redirect When User Clicks Logo',
+//         keyName: 'logoHref',
+//         val: '',
+//         type: ItemType.TXT,
+//         isUrl: true,
+//         title: 'Where to redirect the user if they click the logo.',
+//         shouldShow: true,
+        
+//     },
+//     {
+//         name: 'Your Logo URL.',
+//         keyName: 'logoSrc',
+//         val: '/favicon.ico',
+//         type: ItemType.TXT,
+//         isUrl: true,
+//         title: 'A valid URL for your logo.',
+//         shouldShow: true,
+//     },
+//     {
+//         name: 'Button Links To',
+//         keyName: 'ctaButtonHref',
+//         val: '',
+//         isUrl: true,
+//         type: ItemType.TXT,
+//         title: 'Where the user is redirected to when they click the button',
+//         shouldShow: true,
+//     },
+//     {
+//         name: 'Button Text',
+//         keyName: 'ctaButtonText',
+//         val: 'Click me!',
+//         type: ItemType.TXT,
+//         isUrl: false,
+//         title: 'The text displayed on the emails button.',
+//         shouldShow: true,
+//     },
+//     {
+//         name: 'Unsubscribe Link',
+//         keyName: 'unsubHref',
+//         val: '',
+//         isUrl: true,
+//         type: ItemType.TXT,
+//         title: 'Where to redirect the user if they click the unsubscribe link.',
+//         shouldShow: true,
+//     },
+//     {
+//         name: 'Main Heading Text',
+//         keyName: 'heroHeadingText',
+//         val: 'Enter A Heading...',
+//         type: ItemType.TXTAREA,
+//         isUrl: false,
+//         title: 'The main heading for the email',
+//         shouldShow: true,
+//     },
+//     {
+//         name: 'Email Body Text',
+//         keyName: 'emailBodyText',
+// ',
+//         type: ItemType.TXTAREA,
+//         isUrl: false,
+//         title: 'The main text displayed in the email body.',
+//         shouldShow: true,
+//     },
+//     {
+//         name: 'Preheader',
+//         keyName: 'preheader',
+//         val: 'Preheader is shown as a preview in some email clients, seen by users before opening a message.',
+//         type: ItemType.TXTAREA,
+//         isUrl: false,
+//         title: 'Preheader is shown as a preview in some email clients, seen by users before opening a message.',
+//         shouldShow: true,
+//     },
+//     {
+//         name: 'Final Text in Email',
+//         keyName: 'finalContentText',
+//         val: 'Some more words to display after the button.',
+//         type: ItemType.TXTAREA,
+//         isUrl: false,
+//         title: 'Final text block in the email body.',
+//         shouldShow: true,
+//     },
+//     {
+//         name: 'Final Body Text',
+//         keyName: 'afterBodyText',
+//         val: 'I could be something small, most emails use something like; you are recieving this email because....',
+//         type: ItemType.TXTAREA,
+//         isUrl: false,
+//         title: 'Small text after the email body.',
+//         shouldShow: true,
+//     },
+import { build, TemplateConfig } from '../utils/html'
+// import editablesinglerow from '../components/editablesinglerow'
+import editablewrapper from '../components/editablewrapper'
 export default {
     name: 'htmlpreview',
-    props: {
-        config: {
-            type: Object,
-            required: true,
-        },
+    components: {
+        // editablesinglerow,
+        editablewrapper,
     },
     data() {
         return {
-            html: '',
-            inputnames: config,
+            values: {
+                preheader: 'Preheader is shown as a preview in some email clients, seen by users before opening a message.',
+                logoHref: '',
+                logoSrc: '/favicon.ico',
+                heroHeadingText: 'Enter A Heading...',
+                emailBodyText: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
+                ctaButtonHref: '',
+                ctaButtonText: 'Click me!',
+                finalContentText: 'I could be something small, most emails use something like; you are recieving this email because....',
+                afterBodyText: 'Some more words to display after the button.',
+                unsubHref: '',
+            },
         }
     },
     created() {
 
-        this.html = build(this.buildPayLoad)
     },
     mounted () {
-        window.addEventListener('contentedit', (e) => {
 
-            debugger
+        this.$on('closeeditor', () => { this.heroHeadingText = false })
+        this.$on('modelchange', (event) => { 
+            this.values[event.keyname] = event.value
+        })
+        this.$on('newvalueprovided', (e) => {
+            this.values[e.keyName] = e.val
+        })
 
-            this.inputnames.forEach((element, index) => {
+    },
+    methods: {
 
-                debugger
-
-                if (element.keyName === e.detail.keyName) {
-                    debugger
-                    this.inputnames[index].val = e.detail.newValue
-                }
-                
-            })
-
-        }, false)
     },
     computed: {
-        buildPayLoad () {
-            let final = {}
-            this.inputnames.forEach(element => {
-                final[element.keyName] = element.val
-            })
-            return final
-        },
+
     },
     watch: {
-        inputnames: {
+        values: {
             handler: function() {
-                this.html = build(this.buildPayLoad)
+                this.$nextTick(() => {
+                    this.$parent.$emit('makenewbuild', this.values)
+                })
             },
             deep: true,
         },

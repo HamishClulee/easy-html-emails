@@ -7,9 +7,7 @@
 
                 <h2 class="section-header">Preview</h2>
 
-                <htmlpreview
-                    :config="buildPayLoad"
-                ></htmlpreview>
+                <htmlpreview></htmlpreview>
 
             </div>
 
@@ -45,31 +43,12 @@ export default {
     data() {
         return {
             html: '',
-            inputnames: config,
         }
     },
-    created() {
-        this.html = build(this.buildPayLoad)
-    },
     mounted () {
-
-    },
-    computed: {
-        buildPayLoad () {
-            let final = {}
-            this.inputnames.forEach(element => {
-                final[element.keyName] = element.val
-            })
-            return final
-        },
-    },
-    watch: {
-        inputnames: {
-            handler: function() {
-                this.html = build(this.buildPayLoad)
-            },
-            deep: true,
-        },
+        this.$on('makenewbuild', (values) => {
+            this.html = build(values)
+        })
     },
 }
 </script>

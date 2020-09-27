@@ -1,4 +1,4 @@
-interface TemplateConfig {
+export interface TemplateConfig {
     preheader: string,
     logoHref: string,
     logoSrc: string,

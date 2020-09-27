@@ -5,7 +5,7 @@
             <div class="logo-con" @click="$route.name !== 'home' ? routehome : null">
                 <img src="/favicon.ico" />
             </div>
-            <h2 class="navh2">Build My Email</h2>
+            <h4 class="navh4">Build My Email</h4>
         </div>
 
         <div class="navbar-right">
@@ -92,12 +92,12 @@ export default {
         text-transform: uppercase
 .navbar-left
     align-items: center
-    justify-content: center
+    justify-content: flex-start
     width: 600px
-    .navh2
-        margin: 0 0 0 15px
+    .navh4
+        margin: 0
         color: $primary
-        opacity: 0.2
+        opacity: 0.5
 .navbar-con
     position: fixed
     width: 100%
