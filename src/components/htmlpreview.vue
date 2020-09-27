@@ -33,7 +33,7 @@
                                 <editablewrapper keyName="heroHeadingText">
                                 
                                     <h1
-                                        style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;"
+                                        style="margin: 0; color: blue; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;"
                                     >{{values.heroHeadingText}}</h1>
 
                                 </editablewrapper>

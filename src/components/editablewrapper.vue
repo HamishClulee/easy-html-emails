@@ -1,12 +1,18 @@
 <template>
-    <div class="editable-wrapper-container" :id="`edit-wrapper-${random}`">
-        <template v-show="isActive"><slot></slot></template>
-
+    <div>
+        <editorbar v-if="isActive" :posX="posX" :posY="posY"></editorbar>
+        <div class="editable-wrapper-container layout-col" :id="`edit-wrapper-${random}`" @click="isActive = true">
+            <template><slot></slot></template>
+        </div>
     </div>
 </template>
 <script>
+import editorbar from './editorbar'
 export default {
     name: 'editablewrapper',
+    components: {
+        editorbar,
+    },
     props: {
         keyName: {
             type: String,
@@ -15,14 +21,23 @@ export default {
     },
     data() {
         return {
-            isActive: true,
+            isActive: false,
             random: Math.floor((Math.random() * 99999999) + 1),
             editableElemWrapper: null,
             psuedoChild: null,
             localValue: null,
+            posX: null,
+            posY: null,
         }
     },
     mounted() {
+
+        const rect = this.$el.getBoundingClientRect()
+        this.posY = rect.top + 93
+        this.posX = rect.left - 11
+
+        console.log(rect)
+
         this.editableElemWrapper = document.getElementById(`edit-wrapper-${this.random}`)
         this.editableElemWrapper.appendChild(this.$slots.default[0].elm)
         this.psuedoChild = this.editableElemWrapper.childNodes[0]
@@ -44,10 +59,14 @@ export default {
             this.localValue = mutationsList[0].target.textContent
         },
         psuedoChildBlurred() {
-            this.$parent.$emit('newvalueprovided', {
-                keyName: this.keyName,
-                val: this.localValue,
-            })
+
+            this.isActive = false
+            if (this.localValue !== null) {
+                this.$parent.$emit('newvalueprovided', {
+                    keyName: this.keyName,
+                    val: this.localValue,
+                })
+            }
         },
     },
     beforeDestroy() {
