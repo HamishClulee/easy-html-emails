@@ -10,11 +10,11 @@
 
                     <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 300px;">
                         <tr>
-                        <td align="center" valign="top" style="padding: 36px 24px;">
-                            <a :href="values.logoHref" target='_blank'>
-                            <img :src="values.logoSrc" width="62.9%" border='0' alt='logo'/>
-                            </a>
-                        </td>
+                            <td align="center" valign="top" style="padding: 36px 24px;">
+                                <a :href="values.logoHref" target='_blank'>
+                                    <img :src="values.logoSrc" width="62.9%" border='0' alt='logo'/>
+                                </a>
+                            </td>
                         </tr>
                     </table>
 
@@ -30,13 +30,11 @@
                         <tr>
                             <td align="left" bgcolor="#ffffff" style="padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; border-top: 3px solid #009688;">
                                 
-                                <editablewrapper keyName="heroHeadingText">
-                                
+                                <editable :activeKeyName="activeKeyName" keyName="heroHeadingText">
                                     <h1
                                         style="margin: 0; color: blue; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;"
                                     >{{values.heroHeadingText}}</h1>
-
-                                </editablewrapper>
+                                </editable>
                                 
                                 <!-- <h1 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;" @click="heroHeadingText = true" v-if="!heroHeadingText">{{values.heroHeadingText}}</h1>
                                 <editablesinglerow v-else :model="values.heroHeadingText" keyname="heroHeadingText"></editablesinglerow> -->
@@ -57,9 +55,11 @@
                         <!-- start copy -->
                         <tr>
                             <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-                                <editablewrapper keyName="emailBodyText">
+                                
+                                <editable :activeKeyName="activeKeyName" keyName="emailBodyText">
                                     <p style="margin: 0;">{{values.emailBodyText}}</p>
-                                </editablewrapper>
+                                </editable>
+                                
                             </td>
                         </tr>
                         <!-- end copy -->
@@ -73,9 +73,9 @@
                                             <table border="0" cellpadding="0" cellspacing="0">
                                                 <tr>
                                                     <td align="center" bgcolor="#1976D2" style="border-radius: 6px;">
-                                                        <editablewrapper keyName="ctaButtonText">
+                                                        <editable :activeKeyName="activeKeyName" keyName="ctaButtonText">
                                                             <a :href="values.ctaButtonHref" target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">{{values.ctaButtonText}}</a>
-                                                        </editablewrapper>
+                                                        </editable>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -89,7 +89,10 @@
                         <!-- start copy -->
                         <tr>
                             <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-bottom: 3px solid #009688;">
-                                <p style="margin: 0;">{{ values.finalContentText }}</p>
+                                <editable :activeKeyName="activeKeyName" keyName="finalContentText">
+                                    <p style="margin: 0;">{{ values.finalContentText }}</p>
+                                </editable>
+                                
                             </td>
                         </tr>
                         <!-- end copy -->
@@ -109,7 +112,11 @@
                         <!-- start permission -->
                         <tr>
                             <td align="center" bgcolor="white" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-                                <p style="margin: 0;"><a>{{ values.afterBodyText }}</a></p>
+                                <p style="margin: 0;">
+                                    <editable :activeKeyName="activeKeyName" keyName="afterBodyText">
+                                        <a>{{ values.afterBodyText }}</a>
+                                    </editable>
+                                </p>
                             </td>
                         </tr>
                         <!-- end permission -->
@@ -226,13 +233,18 @@
 //         shouldShow: true,
 //     },
 import { build, TemplateConfig } from '../utils/html'
-// import editablesinglerow from '../components/editablesinglerow'
-import editablewrapper from '../components/editablewrapper'
+import editable from './editable'
+import { EventBus, CLOSE_EDITOR_BAR, MODEL_CHANGE, NEW_VALUE_PROVIDED, MAKE_NEW_BUILD } from '../EventBus.ts'
 export default {
     name: 'htmlpreview',
     components: {
-        // editablesinglerow,
-        editablewrapper,
+        editable,
+    },
+    props: {
+        activeKeyName: {
+            required: true,
+            type: String,
+        },
     },
     data() {
         return {
@@ -255,11 +267,13 @@ export default {
     },
     mounted () {
 
-        this.$on('closeeditor', () => { this.heroHeadingText = false })
-        this.$on('modelchange', (event) => { 
+        EventBus.$on(CLOSE_EDITOR_BAR, () => { this.heroHeadingText = false })
+
+        EventBus.$on(MODEL_CHANGE, (event) => { 
             this.values[event.keyname] = event.value
         })
-        this.$on('newvalueprovided', (e) => {
+
+        EventBus.$on(NEW_VALUE_PROVIDED, (e) => {
             this.values[e.keyName] = e.val
         })
 
@@ -274,7 +288,7 @@ export default {
         values: {
             handler: function() {
                 this.$nextTick(() => {
-                    this.$parent.$emit('makenewbuild', this.values)
+                    EventBus.$emit(MAKE_NEW_BUILD, this.values)
                 })
             },
             deep: true,

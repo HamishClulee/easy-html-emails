@@ -7,12 +7,18 @@
 
                 <h2 class="section-header">Preview</h2>
 
-                <htmlpreview></htmlpreview>
+                <htmlpreview :activeKeyName="activeKeyName"></htmlpreview>
 
             </div>
 
             <div class="inputs">
                 <h2 class="section-header">Options</h2>
+                <div class="layout-col">
+                    <h3>{{ activeKeyName }}</h3>
+                    <div>{{
+                        config[activeKeyName]
+                    }}</div>
+                </div>
             </div>
         </div>
 
@@ -34,7 +40,7 @@
 import { build } from '../utils/html'
 import { config } from '../utils/inputconfig'
 import htmlpreview from '../components/htmlpreview.vue'
-
+import { EventBus, MODEL_CHANGE, SET_ACTIVE_KEY } from '../EventBus.ts'
 export default {
     name: 'Beta',
     components: {
@@ -43,12 +49,13 @@ export default {
     data() {
         return {
             html: '',
+            activeKeyName: '',
+            config: config,
         }
     },
     mounted () {
-        this.$on('makenewbuild', (values) => {
-            this.html = build(values)
-        })
+        EventBus.$on(MODEL_CHANGE, (values) => { this.html = build(values)})
+        EventBus.$on(SET_ACTIVE_KEY, (keyName = '') => { this.activeKeyName = keyName })
     },
 }
 </script>

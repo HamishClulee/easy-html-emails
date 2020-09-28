@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import App from '../App.vue'
+import Home from '../views/home.vue'
 import Beta from '../views/beta.vue'
 import notfound from '../views/notfound.vue'
 import overwritemetas from '../utils/seo'
@@ -14,7 +14,7 @@ const routes = [
     {
         path: '/',
         name: 'home',
-        component: App,
+        component: Home,
         beforeEnter: (to: any, from: any, next: any) => {
             overwritemetas({
                 title: 'Easy HTML Templates',
