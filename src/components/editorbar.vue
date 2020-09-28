@@ -19,6 +19,16 @@ export default {
     components: {
         'chrome-picker': Chrome,
     },
+    props: {
+        keyName: {
+            type: String,
+            required: true,
+        },
+        activeKeyName: {
+            type: String,
+            required: true,
+        },
+    },
     data() {
         return {
             colors: {
@@ -35,7 +45,12 @@ export default {
             EventBus.$emit(SET_ACTIVE_KEY, '')
         },
         setTextColour() {
-            EventBus.$emit(NEW_COLOR, this.colors.hex)
+            if (this.keyName === this.activeKeyName) {
+                EventBus.$emit(NEW_COLOR, {
+                    keyName: this.keyName,
+                    color: this.colors.hex,
+                })
+            }
         },
     },
 }

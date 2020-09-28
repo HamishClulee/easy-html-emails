@@ -30,16 +30,18 @@ export default {
 
         this.editableElemWrapper = document.getElementById(`edit-wrapper-${this.random}`)
 
-        // this.editableElemWrapper.appendChild(this.$slots.default[0].elm)
-
-        // this.psuedoChild = this.editableElemWrapper.childNodes[0]
-
         this.psuedoChild = this.$slots.default[0].elm
 
         this.psuedoChild.setAttribute('contenteditable', true)
         this.psuedoChild.style.zIndex = '100'
 
-        EventBus.$on(NEW_COLOR, (color) => { this.psuedoChild.style.color = color })
+        EventBus.$on(NEW_COLOR, details => {
+
+            if (details.keyName === this.keyName) {
+
+                this.psuedoChild.style.color = details.color 
+            }
+        })
 
         // Options for the observer (which mutations to observe)
         const config = { characterData: true, attributes: false, childList: false, subtree: true }
@@ -50,7 +52,7 @@ export default {
         // Start observing the target node for configured mutations
         this.observer.observe(this.psuedoChild, config)
 
-        // this.psuedoChild.addEventListener('blur', this.psuedoChildBlurred, false)
+        this.psuedoChild.addEventListener('blur', this.psuedoChildBlurred, false)
         this.psuedoChild.addEventListener('click', this.setActive, false)
         // this.editableElemWrapper.addEventListener('click', this.setActive, false)
     },
@@ -59,11 +61,6 @@ export default {
             this.localValue = mutationsList[0].target.textContent
         },
         psuedoChildBlurred(e) {
-
-            if(e.currentTarget === this.psuedoChild) {
-                this.psuedoChild.focus()
-                return true
-            }
 
             if (this.localValue !== null) {
                 EventBus.$emit(NEW_VALUE_PROVIDED, {

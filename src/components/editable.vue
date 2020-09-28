@@ -1,11 +1,13 @@
 <template>
     <div class="editable-container">
 
-        <editablewrapper :activeKeyName="activeKeyName" keyName="heroHeadingText" :class="activeKeyName === keyName ? 'makeoutline' : 'inactive'">
+        <editablewrapper :activeKeyName="activeKeyName" :keyName="keyName" :class="activeKeyName === keyName ? 'makeoutline' : 'inactive'">
             <slot></slot>
         </editablewrapper>
 
         <editorbar
+            :activeKeyName="activeKeyName"
+            :keyName="keyName"
             class="editor-bar-container"
             :elemHeight="0"
             v-if="activeKeyName === keyName"
@@ -34,10 +36,11 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+.editable-container
+    position: relative
 .makeoutline
     outline: 2px solid black
     outline-style: auto
-.editable-container
 .editor-bar-container
     position: absolute
 </style>
