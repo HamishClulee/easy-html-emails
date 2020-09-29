@@ -1,6 +1,6 @@
 <template>
     <div class="layout-row editor-bar-container">
-        <div class="under-container layout-row" :style="{ top: '2px' }">
+        <div class="under-container layout-row">
 
             <chrome-picker
                 @input="setTextColour"
@@ -98,12 +98,12 @@ h5
     margin-top: 10px
 .editor-bar-container
     background: white
+    width: 552px
     z-index: 120
-    width: 100%
     box-shadow: 0 0 2px rgba(0,0,0,.3), 0 4px 8px rgba(0,0,0,.3)
     border: 1px solid $light-gray
 .controls-container
-    width: 303px
+    width: 301px
     border-left: 1px solid $light-gray
     input
         width: 100%

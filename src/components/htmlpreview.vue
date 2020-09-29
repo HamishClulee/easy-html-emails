@@ -74,7 +74,7 @@
                                                 <tr>
                                                     <td align="center" bgcolor="#1976D2" style="border-radius: 6px;">
                                                         <editable :activeKeyName="activeKeyName" keyName="ctaButtonText">
-                                                            <a :href="values.ctaButtonHref" target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">{{values.ctaButtonText}}</a>
+                                                            <a target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">{{values.ctaButtonText}}</a>
                                                         </editable>
                                                     </td>
                                                 </tr>

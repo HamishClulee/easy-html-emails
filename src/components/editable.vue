@@ -4,7 +4,7 @@
         <okbutton
             :activeKeyName="activeKeyName"
             :keyName="keyName"
-            class="editor-bar-container"
+            class="ok-bar-container"
             :elemHeight="0"
             v-if="activeKeyName === keyName"
         ></okbutton>
@@ -48,9 +48,15 @@ export default {
 .editable-container
     position: relative
 .makeoutline
-    outline: 2px solid black
+    padding: 10px
+    outline: 2px solid $light-gray
     outline-style: auto
 .editor-bar-container
     position: absolute
-    right: 0
+    right: -2px
+    left: 0
+.ok-bar-container
+    height: 0
+    position: absolute
+    left: 0
 </style>
