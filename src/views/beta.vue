@@ -67,7 +67,7 @@ export default {
     grid-template-columns: 1fr 1fr 1fr
     grid-template-rows: 1fr 1fr
     gap: 1px 1px
-    grid-template-areas: "inputs html html" "inputs html html"
+    grid-template-areas: "html html inputs" "html html inputs"
 .html
     grid-area: html
     padding: 20px

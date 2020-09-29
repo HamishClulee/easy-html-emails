@@ -1,6 +1,14 @@
 <template>
     <div class="editable-container">
 
+        <okbutton
+            :activeKeyName="activeKeyName"
+            :keyName="keyName"
+            class="editor-bar-container"
+            :elemHeight="0"
+            v-if="activeKeyName === keyName"
+        ></okbutton>
+
         <editablewrapper :activeKeyName="activeKeyName" :keyName="keyName" :class="activeKeyName === keyName ? 'makeoutline' : 'inactive'">
             <slot></slot>
         </editablewrapper>
@@ -18,6 +26,7 @@
 <script>
 import editablewrapper from '../components/editablewrapper'
 import editorbar from './editorbar'
+import okbutton from './okbutton'
 export default {
     name: 'editable',
     props: {
@@ -31,7 +40,7 @@ export default {
         },
     },
     components: {
-        editablewrapper, editorbar,
+        editablewrapper, editorbar, okbutton,
     },
 }
 </script>
@@ -43,4 +52,5 @@ export default {
     outline-style: auto
 .editor-bar-container
     position: absolute
+    right: 0
 </style>

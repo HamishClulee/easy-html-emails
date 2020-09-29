@@ -87,6 +87,7 @@ export default {
     display: flex
     flex-direction: row
     background-color: transparent
+    z-index: 200
     a
         color: $font
         text-transform: uppercase
@@ -102,7 +103,7 @@ export default {
     position: fixed
     width: 100%
     top: 0
-    z-index: 2
+    z-index: 200
     opacity: 0.9
     background-color: white
     border-bottom: 1px solid lighten($font, 60)

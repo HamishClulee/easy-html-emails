@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { EventBus, SET_ACTIVE_KEY, NEW_VALUE_PROVIDED, NEW_COLOR } from '../EventBus.ts'
+import { EventBus, SET_ACTIVE_KEY, NEW_VALUE_PROVIDED, NEW_COLOR, NEW_FONT_SIZE } from '../EventBus.ts'
 export default {
     name: 'editablewrapper',
     props: {
@@ -34,12 +34,20 @@ export default {
 
         this.psuedoChild.setAttribute('contenteditable', true)
         this.psuedoChild.style.zIndex = '100'
+        this.psuedoChild.style.lineHeight = '1.2'
 
         EventBus.$on(NEW_COLOR, details => {
 
             if (details.keyName === this.keyName) {
 
                 this.psuedoChild.style.color = details.color 
+            }
+        })
+        EventBus.$on(NEW_FONT_SIZE, details => {
+
+            if (details.keyName === this.keyName) {
+
+                this.psuedoChild.style.fontSize = `${details.fontSize}px` 
             }
         })
 
