@@ -10,14 +10,17 @@
 
         <div class="navbar-right">
 
-            <div class="text-item">
+            <!-- <div class="text-item">
                 <a>There Are No Menu Items :)</a>
+            </div> -->
+            <div class="text-item" :class="checkvis('home') ? 'active-route' : 'inactive-route'">
+                <router-link :to="{ path: '/'}">Home</router-link>
             </div>
-            <!-- <div class="text-item" :class="checkvis('components') ? 'active-route' : 'inactive-route'">
-                <router-link :to="{ path: '/components'}">Components</router-link>
+             <div class="text-item" :class="checkvis('beta') ? 'active-route' : 'inactive-route'">
+                <router-link :to="{ path: '/beta'}">Beta</router-link>
             </div>
 
-            <div class="hamburger" @click="togglecanvas">
+            <!-- <div class="hamburger" @click="togglecanvas">
                 <div class="line"></div>
                 <div class="line"></div>
                 <div class="line"></div>
@@ -91,6 +94,7 @@ export default {
     a
         color: $font
         text-transform: uppercase
+        margin-right: 20px
 .navbar-left
     align-items: center
     justify-content: flex-start
@@ -128,4 +132,35 @@ export default {
     img
         height: 50px
         width: 50px
+.active-route
+    display: flex
+    flex-direction: column
+    &:after
+        content: ''
+        width: 10px
+        height: 2px
+        background-color: $primary
+        position: relative
+        top: 2px
+        right: 2px
+.inactive-route
+    display: flex
+    flex-direction: column
+    &:hover
+        &:after
+            content: ''
+            width: 10px
+            height: 2px
+            background-color: lighten($primary, 20)
+            position: relative
+            top: 2px
+            right: 2px
+    &:after
+        content: ''
+        width: 10px
+        height: 2px
+        background-color: white
+        position: relative
+        top: 2px
+        right: 2px
 </style>

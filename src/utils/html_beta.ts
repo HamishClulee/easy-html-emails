@@ -1,16 +1,6 @@
-export interface TemplateConfig {
-  preheader: string,
-  logoHref: string,
-  logoSrc: string,
-  heroHeadingText: string,
-  emailBodyText: string,
-  ctaButtonHref: string,
-  ctaButtonText: string,
-  finalContentText: string,
-  afterBodyText: string,
-  unsubHref: string,
-}
-const formatHtml = (config: TemplateConfig) => `<!DOCTYPE html>
+import { Config } from './inputconfig'
+
+const formatHtml = (config: Config) => `<!DOCTYPE html>
 <html>
 <head>
 
@@ -118,7 +108,7 @@ const formatHtml = (config: TemplateConfig) => `<!DOCTYPE html>
 
   <!-- start preheader -->
   <div class="preheader" style="display: none; max-width: 0; max-height: 0; overflow: hidden; font-size: 1px; line-height: 1px; color: #fff; opacity: 0;">
-    ${config.preheader}
+    ${config['preheader'].val}
   </div>
   <!-- end preheader -->
 
@@ -136,8 +126,8 @@ const formatHtml = (config: TemplateConfig) => `<!DOCTYPE html>
         <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 300px;">
           <tr>
             <td align="center" valign="top" style="padding: 36px 24px;">
-              <a href='${config.logoHref}' target='_blank'>
-                <img src='${config.logoSrc}' width="62.9%" border='0' alt='logo'/>
+              <a href='${config['logoHref'].val}' target='_blank'>
+                <img src='${config['logoSrc'].val}' width="62.9%" border='0' alt='logo'/>
               </a>
             </td>
           </tr>
@@ -162,7 +152,7 @@ const formatHtml = (config: TemplateConfig) => `<!DOCTYPE html>
         <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
           <tr>
             <td align="left" bgcolor="#ffffff" style="padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; border-top: 3px solid #009688;">
-              <h1 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;">${config.heroHeadingText}</h1>
+              <h1 style="margin: 0; font-size: ${config['heroHeadingText'].fontSize}; font-weight: 700; letter-spacing: -1px; line-height: 48px; color: ${config['heroHeadingText'].color};">${config['heroHeadingText'].val}</h1>
             </td>
           </tr>
         </table>
@@ -187,8 +177,8 @@ const formatHtml = (config: TemplateConfig) => `<!DOCTYPE html>
 
           <!-- start copy -->
           <tr>
-            <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-              <p style="margin: 0;">${config.emailBodyText}</p>
+            <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: ${config['emailBodyText'].fontSize} line-height: 24px;">
+              <p style="margin: 0; color: ${config['emailBodyText'].color};">${config['emailBodyText'].val}</p>
             </td>
           </tr>
           <!-- end copy -->
@@ -202,7 +192,7 @@ const formatHtml = (config: TemplateConfig) => `<!DOCTYPE html>
                     <table border="0" cellpadding="0" cellspacing="0">
                       <tr>
                         <td align="center" bgcolor="#1976D2" style="border-radius: 6px;">
-                          <a href="${config.ctaButtonHref}" target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">${config.ctaButtonText}</a>
+                          <a href="${config['ctaButtonHref'].val}" target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: ${config['ctaButtonText'].fontSize}; color: ${config['ctaButtonHref'].color}; text-decoration: none; border-radius: 6px;">${config['ctaButtonText'].val}</a>
                         </td>
                       </tr>
                     </table>
@@ -215,8 +205,8 @@ const formatHtml = (config: TemplateConfig) => `<!DOCTYPE html>
 
           <!-- start copy -->
           <tr>
-            <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-bottom: 3px solid #009688;">
-              <p style="margin: 0;">${config.finalContentText}</p>
+            <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: ${config['finalContentText'].fontSize}; line-height: 24px; border-bottom: 3px solid #009688;">
+              <p style="margin: 0; color: ${config['finalContentText'].color};">${config['finalContentText'].val}</p>
             </td>
           </tr>
           <!-- end copy -->
@@ -243,8 +233,8 @@ const formatHtml = (config: TemplateConfig) => `<!DOCTYPE html>
 
           <!-- start permission -->
           <tr>
-            <td align="center" bgcolor="white" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-              <p style="margin: 0;">${config.afterBodyText}</a></p>
+            <td align="center" bgcolor="white" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; ${config['afterBodyText'].fontSize}; line-height: 20px; color: #666;">
+              <p style="margin: 0; color: ${config['afterBodyText'].color};">${config['afterBodyText'].val}</a></p>
             </td>
           </tr>
           <!-- end permission -->
@@ -252,7 +242,7 @@ const formatHtml = (config: TemplateConfig) => `<!DOCTYPE html>
           <!-- start unsubscribe -->
           <tr>
             <td align="center" bgcolor="white" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-              <p style="margin: 0;">To stop receiving these emails, you can <a href="${config.unsubHref}" target="_blank">unsubscribe</a> at any time.</p>
+              <p style="margin: 0;">To stop receiving these emails, you can <a href="${config['unsubHref'].val}" target="_blank">unsubscribe</a> at any time.</p>
             </td>
           </tr>
           <!-- end unsubscribe -->
@@ -273,7 +263,7 @@ const formatHtml = (config: TemplateConfig) => `<!DOCTYPE html>
 </body>
 </html>`
 
-export const build = (config: TemplateConfig) => {
+export const build = (config: Config) => {
 
     return formatHtml(config)
 

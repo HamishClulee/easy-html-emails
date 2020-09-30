@@ -13,9 +13,11 @@ interface Inputs {
     title: String,
     shouldShow: Boolean,
     color: String,
+    fontSize?: Number,
+    isVisual: Boolean,
 }
 
-interface Config {
+export interface Config {
     preheader: Inputs,
     logoHref: Inputs,
     logoSrc: Inputs,
@@ -36,7 +38,8 @@ export const config: Config = {
         isUrl: true,
         title: 'Where to redirect the user if they click the logo.',
         shouldShow: true,
-        color: 'black',
+        color: '#000000',
+        isVisual: false,
     },
     logoSrc: {
         name: 'Your Logo URL.',
@@ -45,7 +48,8 @@ export const config: Config = {
         isUrl: true,
         title: 'A valid URL for your logo.',
         shouldShow: true,
-        color: 'black',
+        color: '#000000',
+        isVisual: false,
     },
     ctaButtonHref: {
         name: 'Button Links To',
@@ -54,7 +58,8 @@ export const config: Config = {
         type: ItemType.TXT,
         title: 'Where the user is redirected to when they click the button',
         shouldShow: true,
-        color: 'black',
+        color: '#000000',
+        isVisual: false,
     },
     ctaButtonText: {
         name: 'Button Text',
@@ -63,7 +68,9 @@ export const config: Config = {
         isUrl: false,
         title: 'The text displayed on the emails button.',
         shouldShow: true,
-        color: 'black',
+        color: '#000000',
+        fontSize: 22,
+        isVisual: true,
     },
     unsubHref:    {
         name: 'Unsubscribe Link',
@@ -72,7 +79,8 @@ export const config: Config = {
         type: ItemType.TXT,
         title: 'Where to redirect the user if they click the unsubscribe link.',
         shouldShow: true,
-        color: 'black',
+        color: '#000000',
+        isVisual: false,
     },
     heroHeadingText: {
         name: 'Main Heading Text',
@@ -81,7 +89,9 @@ export const config: Config = {
         isUrl: false,
         title: 'The main heading for the email',
         shouldShow: true,
-        color: 'black',
+        color: '#000000',
+        fontSize: 28,
+        isVisual: true,
     },
     emailBodyText: {
         name: 'Email Body Text',
@@ -90,16 +100,19 @@ export const config: Config = {
         isUrl: false,
         title: 'The main text displayed in the email body.',
         shouldShow: true,
-        color: 'black',
+        color: '#000000',
+        fontSize: 18,
+        isVisual: true,
     },
     preheader: {
         name: 'Preheader',
-        val: 'Preheader is shown as a preview in some email clients, seen by users before opening a message.',
+        val: 'Preheader is shown as a preview in some email clients, seen by users before opening a message. You should change this value.',
         type: ItemType.TXTAREA,
         isUrl: false,
         title: 'Preheader is shown as a preview in some email clients, seen by users before opening a message.',
         shouldShow: true,
-        color: 'black',
+        color: '#000000',
+        isVisual: false,
     },
     finalContentText: {
         name: 'Final Text in Email',
@@ -108,7 +121,9 @@ export const config: Config = {
         isUrl: false,
         title: 'Final text block in the email body.',
         shouldShow: true,
-        color: 'black',
+        color: '#000000',
+        fontSize: 14,
+        isVisual: true,
     },
     afterBodyText: {
         name: 'Final Body Text',
@@ -117,6 +132,8 @@ export const config: Config = {
         isUrl: false,
         title: 'Small text after the email body.',
         shouldShow: true,
-        color: 'black',
+        color: '#000000',
+        fontSize: 12,
+        isVisual: true,
     },
 }

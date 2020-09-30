@@ -11,17 +11,17 @@
 
             <div class="controls-container">
 
-                <div>
-                    <h5>Select Font</h5>
+                <!-- <div>
+                    <h5>Select Font <small>Font selection isn't completed!</small></h5>
                     <multiselect 
                         class="font-size"
                         v-model="test"
                         :options="testers"
                     ></multiselect>
-                </div>
+                </div> -->
 
                 <div class="font-size-container">
-                    <h5>Font Size</h5>
+                    <h5>Font Size {{ fontSize }}px</h5>
                     <input type="range" min="12" max="46" v-model="fontSize" />
                 </div>
 
@@ -32,13 +32,11 @@
 <script>
 import 'vue-multiselect/dist/vue-multiselect.min.css'
 import { Chrome } from 'vue-color'
-import multiselect from 'vue-multiselect'
 import { EventBus, NEW_COLOR, NEW_FONT_SIZE } from '../EventBus'
 export default {
     name: 'editorbar',
     components: {
         'chrome-picker': Chrome,
-        multiselect,
     },
     props: {
         keyName: {
@@ -49,21 +47,27 @@ export default {
             type: String,
             required: true,
         },
+        config: {
+            type: Object,
+            required: false,
+        },
     },
     data() {
         return {
             colors: {
                 hex: '#194d33',
-                hsl: { h: 150, s: 0.5, l: 0.2, a: 1 },
-                hsv: { h: 150, s: 0.66, v: 0.30, a: 1 },
-                rgba: { r: 25, g: 77, b: 51, a: 1 },
-                a: 1,
             },
-            fontSize: 12,
+            fontSize: 0,
             test: '',
             testers: [
                 'Open Sans Pro', 'Playfair Direct', 'Roboto', 'Monserat',
             ],
+        }
+    },
+    created() {
+        if (this.config) {
+            this.fontSize = this.buildFontSizeNumber
+            this.colors.hex = this.config[this.keyName].color
         }
     },
     methods: {
@@ -75,8 +79,10 @@ export default {
                 })
             }
         },
-        setFontSize() {
-
+    },
+    computed: {
+        buildFontSizeNumber() {
+            return this.config[this.keyName].fontSize
         },
     },
     watch: {

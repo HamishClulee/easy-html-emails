@@ -47,29 +47,13 @@ export default {
         }
     },
     created() {
-
         this.html = build(this.buildPayLoad)
-    },
-    mounted () {
-        window.addEventListener('contentedit', (e) => {
-
-
-            this.inputnames.forEach((element, index) => {
-
-
-                if (element.keyName === e.detail.keyName) {
-                    this.inputnames[index].val = e.detail.newValue
-                }
-                
-            })
-
-        }, false)
     },
     computed: {
         buildPayLoad () {
             let final = {}
-            this.inputnames.forEach(element => {
-                final[element.keyName] = element.val
+            Object.keys(this.inputnames).forEach(key => {
+                final[key] = this.inputnames[key].val
             })
             return final
         },

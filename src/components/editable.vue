@@ -14,6 +14,7 @@
         </editablewrapper>
 
         <editorbar
+            :config="config"
             :activeKeyName="activeKeyName"
             :keyName="keyName"
             class="editor-bar-container"
@@ -37,6 +38,10 @@ export default {
         activeKeyName: {
             type: String,
             required: true,
+        },
+        config: {
+            required: false,
+            type: Object,
         },
     },
     components: {
